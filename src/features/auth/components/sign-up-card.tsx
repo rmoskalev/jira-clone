@@ -3,6 +3,7 @@ import { FcGoogle } from "react-icons/fc";
 import { FaGithub } from "react-icons/fa";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import Link from "next/link";
 
 import { DottedSeparator } from "@/components";
 import { Button } from "@/components/ui/button";
@@ -21,17 +22,15 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import Link from "next/link";
 
-const formSchema = z.object({
-  name: z.string().trim().min(1, "Required"),
-  email: z.string().email(),
-  password: z.string().min(8, "Minimum of 8 characters required"),
-});
+import { signUpSchema } from "../schemas";
+import { useSignUp } from "../api";
 
 export const SignUpCard = () => {
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
+  const { mutate } = useSignUp();
+
+  const form = useForm<z.infer<typeof signUpSchema>>({
+    resolver: zodResolver(signUpSchema),
     defaultValues: {
       name: "",
       email: "",
@@ -39,8 +38,8 @@ export const SignUpCard = () => {
     },
   });
 
-  const onSubmit = (values: z.infer<typeof formSchema>) => {
-    console.log({ values });
+  const onSubmit = (values: z.infer<typeof signUpSchema>) => {
+    mutate({ json: values });
   };
 
   return (
@@ -146,10 +145,10 @@ export const SignUpCard = () => {
       </div>
       <CardContent className="p-7 flex items-center justify-center">
         <p>
-           Have an account?
-            <Link href={'/sign-in'}>
+          Have an account?
+          <Link href={"/sign-in"}>
             <span className="text-blue-700">&nbsp;Sign in</span>
-            </Link>
+          </Link>
         </p>
       </CardContent>
     </Card>
