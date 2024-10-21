@@ -7,7 +7,7 @@ const WorkspaceIdPage = async () => {
 
   if (!user) redirect("/sign-in");
 
-  return <div>Workspace id</div>;
+  return <div>Workspace</div>;
 };
 
 export default WorkspaceIdPage;
