@@ -1,1 +1,2 @@
-export * from "./createSchema";
+export * from "./createWorkspaceSchema";
+export * from "./updateWorkspaceSchema";
