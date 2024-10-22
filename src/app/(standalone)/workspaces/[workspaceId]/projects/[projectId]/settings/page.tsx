@@ -22,8 +22,6 @@ const ProjectIdSettingPage = async ({ params }: ProjectIdSettingPageProps) => {
     switch (initialValues.status) {
       case 403:
         redirect("/sign-in");
-      case 404:
-        redirect("/not-found");
       default:
        return console.error("Неизвестная ошибка");
     }
