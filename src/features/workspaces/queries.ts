@@ -33,11 +33,15 @@ export const getWorkspaces = async () => {
   }
 };
 
-interface GerWorkspaceProps {
+interface GetWorkspaceProps {
   workspaceId: string;
 }
 
-export const getWorkspace = async ({ workspaceId }: GerWorkspaceProps) => {
+type WorkspaceResult = Workspace | { error: string; status: number };
+
+export const getWorkspace = async ({
+  workspaceId,
+}: GetWorkspaceProps): Promise<WorkspaceResult> => {
   try {
     const { databases, account } = await createSessionClient();
 
@@ -50,7 +54,7 @@ export const getWorkspace = async ({ workspaceId }: GerWorkspaceProps) => {
     });
 
     if (!member) {
-      return null;
+      throw new Error("Unauthorized");
     }
 
     const workspace = await databases.getDocument<Workspace>(
@@ -60,8 +64,21 @@ export const getWorkspace = async ({ workspaceId }: GerWorkspaceProps) => {
     );
 
     return workspace;
-  } catch {
-    return null;
+  } catch (error) {
+    if (error instanceof Error) {
+      switch (error.message) {
+        case "Unauthorized":
+          return { error: "You have to authorize to continue", status: 403 };
+        case "Not Found":
+          return { error: "Page not found", status: 404 };
+        default:
+          console.error("Ошибка:", error.message);
+          return { error: "Произошла ошибка", status: 500 };
+      }
+    } else {
+      console.error("Неожиданная ошибка:", error);
+      return { error: "Неизвестная ошибка", status: 500 };
+    }
   }
 };
 

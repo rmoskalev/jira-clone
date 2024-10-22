@@ -19,8 +19,14 @@ const WorkspaceIdSettingsPage = async ({
 
   const initialValues = await getWorkspace({ workspaceId: params.workspaceId });
 
-  if (!initialValues) {
-    redirect(`/workspaces/${params.workspaceId}`);
+ if ('error' in initialValues) {
+    if (initialValues.status === 403) {
+      redirect("/sign-in");
+    } else if (initialValues.status === 404) {
+      redirect("/not-found");
+    } else {
+      redirect(`/workspaces/${params.workspaceId}`);
+    }
   }
 
   return (
