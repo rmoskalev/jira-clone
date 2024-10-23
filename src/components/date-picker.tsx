@@ -25,29 +25,34 @@ export const DatePicker = ({
   clearDate,
 }: DatePickerProps) => {
   return (
-    <div className="flex items-center w-fit">
+    <div className="w-full">
       <Popover>
         <PopoverTrigger asChild>
           <Button
             variant={"outline"}
             size={"lg"}
             className={cn(
-              "w-full justify-start text-left font-normal px-3",
+              "w-full justify-between text-left font-normal px-3",
               !value && "text-muted-foreground",
               className
             )}
           >
-            <CalendarIcon className="mr-2 h-4 w-4" />
-            {value ? format(value, "PPP") : <span>{placeholder}</span>}
-            <button
-              onClick={(e) => {
-                e.stopPropagation();
-                clearDate();
-              }}
-              className="right-2 p-1 hover:bg-gray-200 rounded"
-            >
-              <XIcon className="w-4 h-4" />
-            </button>
+            <div className="flex items-center">
+              <CalendarIcon className="mr-2 size-4" />
+              {value ? format(value, "PPP") : <span>{placeholder}</span>}
+            </div>
+
+            {value && (
+              <button
+                onClick={(e) => {
+                  e.stopPropagation();
+                  clearDate();
+                }}
+                className="size-4 p-0 hover:bg-gray-200 rounded"
+              >
+                <XIcon className="size-4" />
+              </button>
+            )}
           </Button>
         </PopoverTrigger>
         <PopoverContent className="w-auto p-0">
