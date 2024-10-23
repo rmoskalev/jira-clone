@@ -45,7 +45,11 @@ export const CreateTaskFromWrapper = ({
 
   return (
     <div>
-      <CreateTaskForm onCancel={onCancel} projectOptions={projectOptions ?? []} memberOptions={memberOptions ?? []} />
+      <CreateTaskForm
+        onCancel={onCancel}
+        projectOptions={projectOptions ?? []}
+        memberOptions={memberOptions ?? []}
+      />
     </div>
   );
 };

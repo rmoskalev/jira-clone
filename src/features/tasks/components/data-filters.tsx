@@ -13,13 +13,19 @@ import { FolderIcon, ListChecksIcon, UserIcon, XIcon } from "lucide-react";
 import { TaskStatus } from "../types";
 import { useTaskFilters } from "../hooks/use-task-filters";
 import { DatePicker } from "@/components/date-picker";
+import { useCurrentProjectId } from "@/features/projects/hooks/use-get-current-project";
+import { useEffect, useState } from "react";
 
 interface DataFiltersProps {
   hideProjectFilter?: boolean;
 }
 
 export const DataFilters = ({ hideProjectFilter }: DataFiltersProps) => {
+  const [projectIdSelector, setProjectIdSelector] = useState("all");
+
   const workspaceId = useWorkspaceId();
+  const currentProjectId = useCurrentProjectId();
+
   const { data: projects, isLoading: isLoadingProjects } = useGetProjects({
     workspaceId,
   });
@@ -27,7 +33,7 @@ export const DataFilters = ({ hideProjectFilter }: DataFiltersProps) => {
     workspaceId,
   });
 
-  const isLoading = isLoadingMembers || isLoadingMembers;
+  const isLoading = isLoadingMembers || isLoadingMembers || isLoadingProjects;
 
   const projectOptions = projects?.documents.map((project) => ({
     value: project.$id,
@@ -59,6 +65,7 @@ export const DataFilters = ({ hideProjectFilter }: DataFiltersProps) => {
   };
 
   const onProjectChange = (value: string) => {
+    setProjectIdSelector(value);
     if (value === "all") {
       setFilters({ projectId: null });
     } else {
@@ -69,6 +76,10 @@ export const DataFilters = ({ hideProjectFilter }: DataFiltersProps) => {
   const clearDate = () => {
     setFilters({ dueDate: null });
   };
+
+  useEffect(() => {
+    onProjectChange(currentProjectId);
+  }, [currentProjectId]);
 
   if (isLoading) return null;
 
@@ -116,7 +127,7 @@ export const DataFilters = ({ hideProjectFilter }: DataFiltersProps) => {
       </Select>
       <Select
         onValueChange={(value) => onProjectChange(value)}
-        defaultValue={projectId ?? undefined}
+        value={projectIdSelector}
       >
         <SelectTrigger className="w-full lg:w-auto h-8">
           <div className="flex items-center pr-2">
@@ -140,9 +151,18 @@ export const DataFilters = ({ hideProjectFilter }: DataFiltersProps) => {
         onChange={(date) => {
           setFilters({ dueDate: date ? date.toISOString() : null });
         }}
-        clearDate={clearDate}
         className="h-8 w-full lg:w-auto"
-      />
+      >
+        <div
+          onClick={(e) => {
+            e.stopPropagation();
+            clearDate?.();
+          }}
+          className="size-4 p-0 hover:bg-gray-200 rounded"
+        >
+          <XIcon className="size-4" />
+        </div>
+      </DatePicker>
     </div>
   );
 };
