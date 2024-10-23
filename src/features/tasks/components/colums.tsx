@@ -28,7 +28,7 @@ export const columns: ColumnDef<Task>[] = [
     cell: ({ row }) => {
       const name = row.original.name;
 
-      return <p className="line-clamp-1">{name}</p>;
+      return <p className="truncate w-[200px]">{name}</p>;
     },
   },
   {
@@ -54,7 +54,7 @@ export const columns: ColumnDef<Task>[] = [
             image={project.imageUrl}
             className="size-6"
           />
-          <p className="line-clamp-1">{project.name}</p>
+          <p className="truncate max-w-[100px]">{project.name}</p>
         </div>
       );
     },
@@ -82,7 +82,7 @@ export const columns: ColumnDef<Task>[] = [
             fallbackClassName="text-xs"
             className="size-6"
           />
-          <p className="line-clamp-1">{assignee.name}</p>
+          <p className="truncate max-w-[150px]">{assignee.name}</p>
         </div>
       );
     },
@@ -128,14 +128,14 @@ export const columns: ColumnDef<Task>[] = [
   {
     id: "actions",
     cell: ({ row }) => {
-      const id = row.original.$id
-      const projectId = row.original.projectId
+      const id = row.original.$id;
+      const projectId = row.original.projectId;
 
       return (
         <TaskActions id={id} projectId={projectId}>
-            <Button variant={'ghost'} className="size-8 p-0">
-                <MoreVertical className="size-4"/>
-            </Button>
+          <Button variant={"ghost"} className="size-8 p-0">
+            <MoreVertical className="size-4" />
+          </Button>
         </TaskActions>
       );
     },

@@ -14,7 +14,7 @@ interface DatePickerProps {
   onChange: (date: Date) => void;
   className?: string;
   placeholder?: string;
-  clearDate: () => void;
+  clearDate?: () => void;
 }
 
 export const DatePicker = ({
@@ -46,7 +46,7 @@ export const DatePicker = ({
               <button
                 onClick={(e) => {
                   e.stopPropagation();
-                  clearDate();
+                  clearDate?.();
                 }}
                 className="size-4 p-0 hover:bg-gray-200 rounded"
               >
