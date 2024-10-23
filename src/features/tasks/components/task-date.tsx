@@ -15,12 +15,14 @@ export const TaskDate = ({ value, className }: TaskDateProps) => {
     return <span className={cn("text-muted-foreground", className)}>Invalid date</span>;
   }
 
-  let textColor = "text-green-600";
+  let textColor = "text-black-600 font-semibold";
 
-  if (diffInDays <= 1) {
-    textColor = "text-red-500";
-  }  else if (diffInDays <= 3) {
-    textColor = "text-yellow-500";
+  if (diffInDays >= 0 && diffInDays <= 2) {
+    textColor = "text-amber-500 font-semibold";
+  } else if (diffInDays > 2 && diffInDays <= 6) {
+    textColor = "text-green-500 font-semibold";
+  } else if (diffInDays <= 0) {
+    textColor = "text-red-500 font-bold";
   }
 
   return (
