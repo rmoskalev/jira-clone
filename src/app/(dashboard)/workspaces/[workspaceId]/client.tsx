@@ -2,16 +2,16 @@
 
 import { Analytics } from "@/components/analytics";
 import { PageError } from "@/components/page-error";
-import { PageLoader } from "@/components/page-loader";
-import { useGetMembers } from "@/features/members/api/use-get-members";
-import { HomeMembersList } from "@/features/members/components/home-members-list";
-import { useGetProjects } from "@/features/projects/api/use-get-projects";
-import { useGetTasks } from "@/features/tasks/api/use-get-tasks";
-import { CompletedTasks } from "@/features/tasks/components/completed-tasks";
-import { ProjectsList } from "@/features/projects/components/projects-list";
 import { TasksList } from "@/features/tasks/components/task-list";
-import { useGetWorkspaceAnalytics } from "@/features/workspaces/api/use-get-workspace-analytics";
+import { PageLoader } from "@/components/page-loader";
+import { useGetTasks } from "@/features/tasks/api/use-get-tasks";
+import { ProjectsList } from "@/features/projects/components/projects-list";
+import { useGetMembers } from "@/features/members/api/use-get-members";
 import { useWorkspaceId } from "@/features/workspaces/hooks/use-workspace-id";
+import { CompletedTasks } from "@/features/tasks/components/completed-tasks";
+import { useGetProjects } from "@/features/projects/api/use-get-projects";
+import { HomeMembersList } from "@/features/members/components/home-members-list";
+import { useGetWorkspaceAnalytics } from "@/features/workspaces/api/use-get-workspace-analytics";
 
 export const WorkspaceIdClient = () => {
   const workspaceId = useWorkspaceId();
@@ -46,7 +46,7 @@ export const WorkspaceIdClient = () => {
     <div className="h-full flex-col space-y-4">
       <Analytics data={analytics} />
       <div className="grid grid-cols-1 xl:grid-cols-2 gap-4">
-        <TasksList tasks={tasks.documents} total={tasks.total} />
+        <TasksList tasks={tasks.documents} />
         <CompletedTasks tasks={tasks.documents} />
       </div>
       <div className="grid grid-cols-1 xl:grid-cols-2 gap-4">

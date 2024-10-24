@@ -11,19 +11,15 @@ import { useState } from "react";
 
 interface TasksListProps {
   tasks: Task[];
-  total: number;
 }
 
-export const TasksList = ({ tasks, total }: TasksListProps) => {
+export const TasksList = ({ tasks }: TasksListProps) => {
   const workspaceId = useWorkspaceId();
   const { open: createTask } = useCreateTaskModal();
 
   const [showAllTasks, setShowAllTasks] = useState(false);
 
   const activeTasks = tasks.filter((task) => task.status !== TaskStatus.DONE);
-  const completedTasks = tasks.filter(
-    (task) => task.status === TaskStatus.DONE
-  );
 
   const sortedTasks = activeTasks.sort((a, b) => {
     const now = new Date();

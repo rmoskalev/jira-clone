@@ -4,7 +4,7 @@ import { DottedSeparator } from "@/components";
 import Link from "next/link";
 import { useWorkspaceId } from "@/features/workspaces/hooks/use-workspace-id";
 import { Card, CardContent } from "@/components/ui/card";
-import { differenceInHours, formatDistanceToNow, isBefore } from "date-fns";
+import { isBefore } from "date-fns";
 import { useState } from "react";
 
 interface TasksListProps {
@@ -16,7 +16,6 @@ export const CompletedTasks = ({ tasks }: TasksListProps) => {
 
   const [showAllTasks, setShowAllTasks] = useState(false);
 
-  const activeTasks = tasks.filter((task) => task.status !== TaskStatus.DONE);
   const completedTasks = tasks.filter(
     (task) => task.status === TaskStatus.DONE
   );

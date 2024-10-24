@@ -1,5 +1,8 @@
 "use client";
 
+import Link from "next/link";
+import { Pencil } from "lucide-react";
+
 import { Analytics } from "@/components/analytics";
 import { PageError } from "@/components/page-error";
 import { PageLoader } from "@/components/page-loader";
@@ -9,8 +12,6 @@ import { useGetProjectAnalytics } from "@/features/projects/api/use-get-project-
 import { ProjectAvatar } from "@/features/projects/components/project-avatar";
 import { useProjectId } from "@/features/projects/hooks/use-task-id";
 import { TaskViewSwitcher } from "@/features/tasks/components/task-view-switcher";
-import { Pencil } from "lucide-react";
-import Link from "next/link";
 
 export const ProjectIdClient = () => {
   const projectId = useProjectId();

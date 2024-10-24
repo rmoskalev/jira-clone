@@ -5,7 +5,6 @@ import { DottedSeparator } from "@/components";
 import Link from "next/link";
 import { useWorkspaceId } from "@/features/workspaces/hooks/use-workspace-id";
 import { Card, CardContent } from "@/components/ui/card";
-import { ProjectAvatar } from "@/features/projects/components/project-avatar";
 import { useState } from "react";
 import { MemberAvatar } from "./member-avatar";
 

@@ -8,7 +8,9 @@ import { useRouter } from "next/navigation";
 
 interface EventCardProps {
   title: string;
-  assignee: any;
+  assignee: {
+    name: string;
+  };
   project: Project;
   status: TaskStatus;
   id: string;
@@ -31,6 +33,8 @@ export const EventCard = ({
 }: EventCardProps) => {
   const workspaceId = useWorkspaceId();
   const router = useRouter();
+
+  console.log(assignee);
 
   const onClick = (e: React.MouseEvent<HTMLDivElement>) => {
     e.stopPropagation();

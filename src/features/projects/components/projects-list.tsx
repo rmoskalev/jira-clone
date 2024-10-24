@@ -1,12 +1,9 @@
 import { Button } from "@/components/ui/button";
-import { Task, TaskStatus } from "../../tasks/types";
-import { useCreateTaskModal } from "../../tasks/hooks/use-create-task-modal";
-import { CalendarIcon, PlusIcon } from "lucide-react";
+import { PlusIcon } from "lucide-react";
 import { DottedSeparator } from "@/components";
 import Link from "next/link";
 import { useWorkspaceId } from "@/features/workspaces/hooks/use-workspace-id";
 import { Card, CardContent } from "@/components/ui/card";
-import { formatDistanceToNow } from "date-fns";
 import { Project } from "@/features/projects/types";
 import { useCreateProjectModal } from "@/features/projects/hooks/use-create-project-modal";
 import { ProjectAvatar } from "@/features/projects/components/project-avatar";

@@ -14,7 +14,7 @@ import { DataTable } from "./data-table";
 import { columns } from "./colums";
 import { DataKanban } from "./data-kanban";
 import { Task, TaskStatus } from "../types";
-import { useCallback, useEffect } from "react";
+import { useCallback } from "react";
 import { useBulkUpdateTasks } from "../api/use-bulk-update-tasks";
 import { DataCalendar } from "./data-calendar";
 

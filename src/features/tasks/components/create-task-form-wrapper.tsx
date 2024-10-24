@@ -6,7 +6,7 @@ import { Loader } from "lucide-react";
 import { CreateTaskForm } from "./create-task-form";
 
 interface CreateTaskFromWrapperProps {
-  onCancel: () => {};
+  onCancel: () => void;
 }
 
 export const CreateTaskFromWrapper = ({

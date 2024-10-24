@@ -7,7 +7,7 @@ import { useGetTask } from "../api/use-get-task";
 import { EditTaskForm } from "./edit-task-form";
 
 interface EditTaskFromWrapperProps {
-  onCancel: () => {};
+  onCancel: () => void;
   id: string;
 }
 
