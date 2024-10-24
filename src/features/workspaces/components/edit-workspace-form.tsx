@@ -3,7 +3,7 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { ArrowLeftIcon, CopyIcon, ImageIcon } from "lucide-react";
 import { useRouter } from "next/navigation";
@@ -40,9 +40,18 @@ export const EditWorkspaceForm = ({
   initialValues,
 }: EditWorkspaceFormProps) => {
   const router = useRouter();
+  const [fullInviteLink, setFullInviteLink] = useState("");
   const { mutate, isPending } = useUpdateWorkspace();
   const { mutate: deleteWorkspace, isPending: isDeletingWorkspace } =
     useDeleteWorkspace();
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      setFullInviteLink(
+        `${window.location.origin}/workspaces/${initialValues.$id}/join/${initialValues.inviteCode}`
+      );
+    }
+  }, [initialValues.$id, initialValues.inviteCode]);
 
   const { mutate: resetInviteCode, isPending: isResetingInviteCode } =
     useResetInviteCode();
@@ -91,9 +100,11 @@ export const EditWorkspaceForm = ({
 
     if (!ok) return;
 
-    resetInviteCode({
-      param: { workspaceId: initialValues.$id },
-    });
+    resetInviteCode(
+      {
+        param: { workspaceId: initialValues.$id },
+      },
+    );
   };
 
   const onSubmit = (values: z.infer<typeof updateWorkspaceSchema>) => {
@@ -108,7 +119,6 @@ export const EditWorkspaceForm = ({
         onSuccess: ({ data }) => {
           form.reset();
           window.location.href = `/workspaces/${data.$id}`;
-          // router.push(`/workspaces/${data.$id}`);
         },
       }
     );
@@ -121,8 +131,6 @@ export const EditWorkspaceForm = ({
       form.setValue("image", file);
     }
   };
-
-  const fullInviteLink = `${window.location.origin}/workspaces/${initialValues.$id}/join/${initialValues.inviteCode}`;
 
   const handleCopyInviteLink = () => {
     navigator.clipboard

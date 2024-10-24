@@ -25,11 +25,7 @@ const WorkspaceIdJoinPage = async ({ params }: WorkspaceIdJoinPageProps) => {
 
   return (
     <div className="w-full lg:max-w-2xl">
-      <JoinWorkspaceForm
-        initialValues={initialValues}
-        code={params.inviteCode}
-        workspaceId={params.workspaceId}
-      />
+      <JoinWorkspaceForm initialValues={initialValues} code={params.inviteCode} workspaceId={params.workspaceId} />
     </div>
   );
 };
