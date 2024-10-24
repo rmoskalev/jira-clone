@@ -27,6 +27,7 @@ import { Input } from "@/components/ui/input";
 
 import { signUpSchema } from "../schemas";
 import { useSignUp } from "../api";
+import { signUpWithGithub, signUpWithGoogle } from "@/lib/oauth";
 
 export const SignUpCard = () => {
   const { mutate, isPending } = useSignUp();
@@ -124,6 +125,7 @@ export const SignUpCard = () => {
       </div>
       <CardContent className="p-7 flex flex-col gap-y-4">
         <Button
+          onClick={() => signUpWithGoogle()}
           variant={"secondary"}
           size={"lg"}
           className="w-full"
@@ -133,6 +135,7 @@ export const SignUpCard = () => {
           Login with Google
         </Button>
         <Button
+          onClick={() => signUpWithGithub()}
           variant={"secondary"}
           size={"lg"}
           className="w-full"
