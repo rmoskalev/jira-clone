@@ -1,5 +1,4 @@
 import { getCurrent } from "@/features/auth/queries";
-import { getProject } from "@/features/projects/queries";
 import { redirect } from "next/navigation";
 import { ProjectIdClient } from "./client";
 

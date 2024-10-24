@@ -13,16 +13,18 @@ import { useTaskFilters } from "../hooks/use-task-filters";
 import { DataTable } from "./data-table";
 import { columns } from "./colums";
 import { DataKanban } from "./data-kanban";
-import { TaskStatus } from "../types";
+import { Task, TaskStatus } from "../types";
 import { useCallback, useEffect } from "react";
 import { useBulkUpdateTasks } from "../api/use-bulk-update-tasks";
 import { DataCalendar } from "./data-calendar";
 
+interface TaskViewSwitcherProps {
+  currentUser?: string | null;
+}
 
-
-export const TaskViewSwitcher = () => {
+export const TaskViewSwitcher = ({ currentUser }: TaskViewSwitcherProps) => {
   const [{ status, assigneeId, projectId, dueDate }] = useTaskFilters();
- 
+
   const [view, setView] = useQueryState("task-view", {
     defaultValue: "table",
   });
@@ -38,6 +40,12 @@ export const TaskViewSwitcher = () => {
     assigneeId,
     dueDate,
   });
+
+  const filteredTasks = currentUser
+    ? tasks?.documents.filter((task: Task) =>
+        currentUser ? task.assignee?.userId === currentUser : true
+      ) ?? []
+    : undefined;
 
   const onKanbanChange = useCallback(
     (tasks: { $id: string; status: TaskStatus; position: number }[]) => {
@@ -77,7 +85,7 @@ export const TaskViewSwitcher = () => {
           </Button>
         </div>
         <DottedSeparator className="my-4" />
-        <DataFilters/>
+        <DataFilters currentUser={currentUser} />
         <DottedSeparator className="my-4" />
         {isLoadingTasks ? (
           <div className="w-full border rounded-lg h-[200px] flex flex-col items-center justify-center">
@@ -86,7 +94,10 @@ export const TaskViewSwitcher = () => {
         ) : (
           <>
             <TabsContent value="table" className="mt-0">
-              <DataTable columns={columns} data={tasks?.documents ?? []} />
+              <DataTable
+                columns={columns}
+                data={filteredTasks ?? tasks?.documents ?? []}
+              />
             </TabsContent>
             <TabsContent value="kanban" className="mt-0">
               <DataKanban

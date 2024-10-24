@@ -16,7 +16,11 @@ import { DatePicker } from "@/components/date-picker";
 import { useCurrentProjectId } from "@/features/projects/hooks/use-get-current-project";
 import { useEffect, useState } from "react";
 
-export const DataFilters = () => {
+interface DataFiltersProps {
+  currentUser?: string | null;
+}
+
+export const DataFilters = ({ currentUser }: DataFiltersProps) => {
   const [projectIdSelector, setProjectIdSelector] = useState("all");
 
   const workspaceId = useWorkspaceId();
@@ -100,26 +104,28 @@ export const DataFilters = () => {
           <SelectItem value={TaskStatus.DONE}>Done</SelectItem>
         </SelectContent>
       </Select>
-      <Select
-        onValueChange={(value) => onAssigneeChange(value)}
-        defaultValue={assigneeId ?? undefined}
-      >
-        <SelectTrigger className="w-full lg:w-auto h-8">
-          <div className="flex items-center pr-2">
-            <UserIcon className="size-4 mr-2" />
-            <SelectValue placeholder="All assignees" />
-          </div>
-        </SelectTrigger>
-        <SelectContent>
-          <SelectItem value="all">All assignees</SelectItem>
-          <SelectSeparator />
-          {memberOptions?.map((member) => (
-            <SelectItem key={member.value} value={member.value}>
-              {member.label}
-            </SelectItem>
-          ))}
-        </SelectContent>
-      </Select>
+      {!currentUser && (
+        <Select
+          onValueChange={(value) => onAssigneeChange(value)}
+          defaultValue={assigneeId ?? undefined}
+        >
+          <SelectTrigger className="w-full lg:w-auto h-8">
+            <div className="flex items-center pr-2">
+              <UserIcon className="size-4 mr-2" />
+              <SelectValue placeholder="All assignees" />
+            </div>
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="all">All assignees</SelectItem>
+            <SelectSeparator />
+            {memberOptions?.map((member) => (
+              <SelectItem key={member.value} value={member.value}>
+                {member.label}
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
+      )}
       <Select
         onValueChange={(value) => onProjectChange(value)}
         value={projectIdSelector}
