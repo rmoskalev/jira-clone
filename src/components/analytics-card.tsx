@@ -16,8 +16,10 @@ export const AnalyticsCard = ({
   variant,
   increaseValue,
 }: AnalyticsCardProps) => {
-
-  const isUpVariant = title === "Uncompleted tasks" ? variant === "down" : variant === "up";
+  const isUpVariant =
+    title === "Uncompleted tasks" || title === "Overdue tasks"
+      ? variant === "down"
+      : variant === "up";
   const iconColor = isUpVariant ? "text-emerald-500" : "text-red-500";
   const increaseValueColor = isUpVariant ? "text-emerald-500" : "text-red-500";
   const Icon = variant === "up" ? FaCaretUp : FaCaretDown;
@@ -45,7 +47,7 @@ export const AnalyticsCard = ({
           <CardTitle className="3xl font-semibold">{value}</CardTitle>
         </CardHeader>
       </Card>
-      <DottedSeparator direction="vertical"/>
+      <DottedSeparator direction="vertical" />
     </div>
   );
 };
