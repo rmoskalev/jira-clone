@@ -16,11 +16,7 @@ import { DatePicker } from "@/components/date-picker";
 import { useCurrentProjectId } from "@/features/projects/hooks/use-get-current-project";
 import { useEffect, useState } from "react";
 
-interface DataFiltersProps {
-  hideProjectFilter?: boolean;
-}
-
-export const DataFilters = ({ hideProjectFilter }: DataFiltersProps) => {
+export const DataFilters = () => {
   const [projectIdSelector, setProjectIdSelector] = useState("all");
 
   const workspaceId = useWorkspaceId();
@@ -45,8 +41,7 @@ export const DataFilters = ({ hideProjectFilter }: DataFiltersProps) => {
     label: member.name,
   }));
 
-  const [{ status, assigneeId, projectId, dueDate }, setFilters] =
-    useTaskFilters();
+  const [{ status, assigneeId, dueDate }, setFilters] = useTaskFilters();
 
   const onStatusChange = (value: string) => {
     if (value === "all") {

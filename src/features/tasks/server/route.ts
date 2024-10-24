@@ -133,7 +133,7 @@ const app = new Hono()
       const user = c.get("user");
       const databases = c.get("databases");
 
-      const { name, status, workspaceId, projectId, dueDate, assigneeId } =
+      const { name, status, workspaceId, projectId, dueDate, assigneeId, description } =
         c.req.valid("json");
 
       const member = await getMember({
@@ -174,6 +174,7 @@ const app = new Hono()
           dueDate,
           assigneeId,
           position: newPosition,
+          description,
         }
       );
 

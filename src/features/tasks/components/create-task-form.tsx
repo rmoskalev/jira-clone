@@ -34,6 +34,7 @@ import {
 import { MemberAvatar } from "@/features/members/components/member-avatar";
 import { ProjectAvatar } from "@/features/projects/components/project-avatar";
 import { useCreateTaskModal } from "../hooks/use-create-task-modal";
+import { Textarea } from "@/components/ui/textarea";
 
 interface CreateTaskFormProps {
   onCancel?: () => void;
@@ -57,6 +58,7 @@ export const CreateTaskForm = ({
     defaultValues: {
       workspaceId,
       name: "",
+      description: "",
     },
   });
 
@@ -206,6 +208,22 @@ export const CreateTaskForm = ({
                         ))}
                       </SelectContent>
                     </Select>
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="description"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Description</FormLabel>
+                    <FormControl>
+                      <Textarea
+                        {...field}
+                        placeholder="Enter description"
+                        rows={4}
+                      />
+                    </FormControl>
                   </FormItem>
                 )}
               />
